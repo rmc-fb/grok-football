@@ -1,0 +1,54 @@
+name: Update Football Schedule from Apify
+
+on:
+  schedule:
+    - cron: '30 8 * * *'     # 毎日朝8:30（JSTは+9h考慮）
+  workflow_dispatch:         # 手動実行可能
+
+jobs:
+  scrape-and-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Apify Actor
+        id: run-actor
+        run: |
+          curl -X POST \
+            "https://api.apify.com/v2/actor-runs?token=${{ secrets.APIFY_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "actorId": "azzouzana/sofascore-scraper-pro",
+              "input": {
+                "startUrls": [
+                  "https://www.sofascore.com/football"
+                ],
+                "maxItems": 150
+              }
+            }' > run_response.json
+
+          echo "RUN_ID=$(jq -r '.data.id' run_response.json)" >> $GITHUB_ENV
+
+      - name: Wait for Actor to finish (最大10分)
+        run: |
+          for i in {1..60}; do
+            status=$(curl -s "https://api.apify.com/v2/actor-runs/${{ env.RUN_ID }}?token=${{ secrets.APIFY_TOKEN }}" | jq -r '.data.status')
+            echo "Status: $status"
+            if [ "$status" = "SUCCEEDED" ] || [ "$status" = "FAILED" ]; then
+              break
+            fi
+            sleep 10
+          done
+
+      - name: Download Dataset
+        run: |
+          mkdir -p data
+          curl -o data/matches.json \
+            "https://api.apify.com/v2/actor-runs/${{ env.RUN_ID }}/dataset/items?token=${{ secrets.APIFY_TOKEN }}"
+
+      - name: Commit & Push
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update: Latest Sofascore football schedule"
+          file_pattern: data/matches.json
