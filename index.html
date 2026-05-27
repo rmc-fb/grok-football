@@ -5,42 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>海外サッカー 日程 | 日本人選手追跡</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 <body>
   <header>
-    <div class="container">
-      <h1>⚽ 海外サッカー 日程</h1>
-      <p class="subtitle">日本人選手活躍を追跡</p>
-      <div class="update-info">
-        更新: <span id="last-update">---</span><br>
-        <small>毎日 07:00 JST 自動更新予定</small>
-      </div>
-    </div>
+    <h1>⚽ 海外サッカー 日程</h1>
+    <p>日本人選手活躍を追跡</p>
   </header>
 
-  <main class="container">
-    <div class="filters">
-      <input type="text" id="search" placeholder="選手名・チーム名で検索...">
-      <select id="league-filter">
-        <option value="">全リーグ</option>
-        <option value="premier">プレミアリーグ</option>
-        <option value="bundes">ブンデスリーガ</option>
-        <option value="laliga">ラ・リーガ</option>
-        <option value="serie">セリエA</option>
-        <option value="ligue1">リーグ・アン</option>
-      </select>
-    </div>
+  <div class="filters">
+    <input type="text" id="search" placeholder="選手名・チーム名で検索">
+    <select id="league">
+      <option value="">全リーグ</option>
+      <option value="premier">プレミアリーグ</option>
+      <option value="bundes">ブンデスリーガ</option>
+      <option value="laliga">ラ・リーガ</option>
+    </select>
+  </div>
 
-    <div id="schedule-list" class="schedule-list">
-      <!-- JSでここに試合を挿入 -->
-    </div>
-  </main>
-
-  <footer>
-    <p>データソース: 各種リーグ公式 / 自動取得中</p>
-    <p>Made with ❤️ for Japanese football fans</p>
-  </footer>
+  <div id="matches" class="matches"></div>
 
   <script src="script.js"></script>
 </body>
