@@ -3,26 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>海外サッカー 日程 | 日本人選手追跡</title>
+  <title>⚽ 海外サッカー 日程 - 日本人選手追跡</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 <body>
   <header>
-    <h1>⚽ 海外サッカー 日程</h1>
-    <p>日本人選手活躍を追跡</p>
+    <div class="header-content">
+      <h1>⚽ 海外サッカー 日程</h1>
+      <p class="subtitle">日本人選手の活躍をリアルタイム追跡</p>
+    </div>
   </header>
 
-  <div class="filters">
-    <input type="text" id="search" placeholder="選手名・チーム名で検索">
-    <select id="league">
-      <option value="">全リーグ</option>
-      <option value="premier">プレミアリーグ</option>
-      <option value="bundes">ブンデスリーガ</option>
-      <option value="laliga">ラ・リーガ</option>
-    </select>
-  </div>
+  <div class="container">
+    <div class="filters">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="search" placeholder="選手名 or チーム名で検索...">
+      </div>
+      <select id="league-filter">
+        <option value="">全リーグ</option>
+        <option value="premier">プレミアリーグ</option>
+        <option value="bundes">ブンデスリーガ</option>
+        <option value="laliga">ラ・リーガ</option>
+        <option value="serie">セリエA</option>
+        <option value="ligue1">リーグ・アン</option>
+      </select>
+    </div>
 
-  <div id="matches" class="matches"></div>
+    <div id="matches" class="matches-grid"></div>
+  </div>
 
   <script src="script.js"></script>
 </body>
