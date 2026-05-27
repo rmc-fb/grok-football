@@ -1,59 +1,53 @@
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-  font-family: system-ui, sans-serif;
-  background: #0f172a;
-  color: #e2e8f0;
-  padding: 20px;
+const sampleData = [
+  {
+    league: "プレミアリーグ",
+    time: "2026-05-29 04:00",
+    home: "マンチェスター・シティ",
+    away: "トッテナム",
+    japanese: "久保建英"
+  },
+  {
+    league: "ブンデスリーガ",
+    time: "2026-05-29 01:30",
+    home: "バイエルン・ミュンヘン",
+    away: "レバークーゼン",
+    japanese: "伊藤洋輝"
+  },
+  {
+    league: "ラ・リーガ",
+    time: "2026-05-30 05:00",
+    home: "レアル・マドリード",
+    away: "バルセロナ",
+    japanese: ""
+  }
+];
+
+function renderMatches(data) {
+  const container = document.getElementById('matches');
+  container.innerHTML = '';
+
+  data.forEach(match => {
+    const div = document.createElement('div');
+    div.className = 'match';
+    div.innerHTML = `
+      <div><strong>${match.league}</strong>　${match.time}</div>
+      <div>${match.home} vs ${match.away}</div>
+      ${match.japanese ? `<div class="japanese">🇯🇵 ${match.japanese}</div>` : ''}
+    `;
+    container.appendChild(div);
+  });
 }
 
-header {
-  text-align: center;
-  padding: 20px 0;
-  background: #1e40af;
-  border-radius: 12px;
-  margin-bottom: 20px;
-}
+// 初回表示
+renderMatches(sampleData);
 
-h1 { font-size: 2.2rem; }
-
-.filters {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-#search {
-  flex: 1;
-  padding: 12px;
-  border-radius: 8px;
-  border: none;
-  font-size: 1.1rem;
-}
-
-select {
-  padding: 12px;
-  border-radius: 8px;
-  background: #1e2937;
-  color: white;
-}
-
-.matches {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.match {
-  background: #1e2937;
-  padding: 16px;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.japanese {
-  color: #4ade80;
-  font-weight: bold;
-}
+// 検索機能
+document.getElementById('search').addEventListener('input', (e) => {
+  const term = e.target.value.toLowerCase();
+  const filtered = sampleData.filter(m => 
+    m.home.toLowerCase().includes(term) || 
+    m.away.toLowerCase().includes(term) ||
+    (m.japanese && m.japanese.toLowerCase().includes(term))
+  );
+  renderMatches(filtered);
+});
