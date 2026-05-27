@@ -1,53 +1,102 @@
-const sampleData = [
-  {
-    league: "プレミアリーグ",
-    time: "2026-05-29 04:00",
-    home: "マンチェスター・シティ",
-    away: "トッテナム",
-    japanese: "久保建英"
-  },
-  {
-    league: "ブンデスリーガ",
-    time: "2026-05-29 01:30",
-    home: "バイエルン・ミュンヘン",
-    away: "レバークーゼン",
-    japanese: "伊藤洋輝"
-  },
-  {
-    league: "ラ・リーガ",
-    time: "2026-05-30 05:00",
-    home: "レアル・マドリード",
-    away: "バルセロナ",
-    japanese: ""
-  }
-];
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-function renderMatches(data) {
-  const container = document.getElementById('matches');
-  container.innerHTML = '';
-
-  data.forEach(match => {
-    const div = document.createElement('div');
-    div.className = 'match';
-    div.innerHTML = `
-      <div><strong>${match.league}</strong>　${match.time}</div>
-      <div>${match.home} vs ${match.away}</div>
-      ${match.japanese ? `<div class="japanese">🇯🇵 ${match.japanese}</div>` : ''}
-    `;
-    container.appendChild(div);
-  });
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: linear-gradient(180deg, #0f172a 0%, #1e2937 100%);
+  color: #e2e8f0;
+  min-height: 100vh;
 }
 
-// 初回表示
-renderMatches(sampleData);
+header {
+  background: linear-gradient(135deg, #1e40af, #3b82f6);
+  padding: 2.5rem 1rem;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+}
 
-// 検索機能
-document.getElementById('search').addEventListener('input', (e) => {
-  const term = e.target.value.toLowerCase();
-  const filtered = sampleData.filter(m => 
-    m.home.toLowerCase().includes(term) || 
-    m.away.toLowerCase().includes(term) ||
-    (m.japanese && m.japanese.toLowerCase().includes(term))
-  );
-  renderMatches(filtered);
-});
+h1 { font-size: 2.8rem; margin-bottom: 0.5rem; }
+.subtitle { font-size: 1.25rem; opacity: 0.95; }
+
+.container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+.filters {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.search-box {
+  flex: 1;
+  min-width: 300px;
+  position: relative;
+}
+
+.search-box i {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+}
+
+#search {
+  width: 100%;
+  padding: 14px 16px 14px 48px;
+  border: none;
+  border-radius: 12px;
+  background: #1e2937;
+  color: white;
+  font-size: 1.1rem;
+}
+
+select {
+  padding: 14px 20px;
+  border-radius: 12px;
+  background: #1e2937;
+  color: white;
+  border: none;
+  font-size: 1.05rem;
+}
+
+.matches-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 18px;
+}
+
+.match-card {
+  background: #1e2937;
+  border-radius: 16px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  border: 1px solid #334155;
+}
+
+.match-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2);
+  border-color: #60a5fa;
+}
+
+.league { color: #60a5fa; font-weight: 600; margin-bottom: 8px; }
+.time { font-size: 1.4rem; font-weight: bold; margin: 8px 0; }
+
+.teams {
+  font-size: 1.25rem;
+  margin: 12px 0;
+  line-height: 1.4;
+}
+
+.japanese {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #22c55e;
+  color: #052e16;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  margin-top: 10px;
+}
