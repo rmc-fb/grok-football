@@ -1,22 +1,3 @@
-const sampleData = [ /* ここに本物のデータが入る予定 */ ];
-
-const dummyData = [
-  { league: "プレミアリーグ", time: "29日 4:00", home: "マンチェスター・シティ", away: "アーセナル", japanese: "久保建英" },
-  { league: "ブンデスリーガ", time: "29日 1:30", home: "RBライプツィヒ", away: "バイエルン", japanese: "伊藤洋輝" },
-  { league: "ラ・リーガ", time: "30日 5:00", home: "レアル・マドリード", away: "アトレティコ", japanese: "" },
-];
-
-function renderMatches(data) {
-  const container = document.getElementById('matches');
-  container.innerHTML = data.map(match => `
-    <div class="match-card">
-      <div class="league">${match.league}</div>
-      <div class="time">${match.time}</div>
-      <div class="teams">${match.home} <strong>VS</strong> ${match.away}</div>
-      ${match.japanese ? `<div class="japanese"><i class="fas fa-flag"></i> ${match.japanese}</div>` : ''}
-    </div>
-  `).join('');
-}
-
-// 初回表示
-renderMatches(dummyData);
+[
+  "error"
+]

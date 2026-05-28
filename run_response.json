@@ -1,0 +1,6 @@
+{
+  "error": {
+    "type": "method-not-allowed",
+    "message": "This API end-point can only be accessed using the following HTTP methods: OPTIONS,GET"
+  }
+}
